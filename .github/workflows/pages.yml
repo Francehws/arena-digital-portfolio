@@ -1,0 +1,57 @@
+name: Portfolio su Pages (solo dopo approvazione)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    if: vars.PUBLICATION_APPROVED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      PUBLISH_BUILD: '1'
+      VITE_NATIVE_PREVIEWS: '1'
+      SITE_URL: ${{ vars.SITE_URL }}
+      VITE_TAVQI_DEMO_URL: ${{ vars.VITE_TAVQI_DEMO_URL }}
+      VITE_RECEPTIONIST_DEMO_URL: ${{ vars.VITE_RECEPTIONIST_DEMO_URL }}
+      VITE_AUTO_DEMO_URL: ${{ vars.VITE_AUTO_DEMO_URL }}
+      VITE_FPS_DEMO_URL: ${{ vars.VITE_FPS_DEMO_URL }}
+      BASE_PATH: ${{ vars.BASE_PATH }}
+      VITE_CONTACT_EMAIL: ${{ vars.VITE_CONTACT_EMAIL }}
+      VITE_WHATSAPP_NUMBER: ${{ vars.VITE_WHATSAPP_NUMBER }}
+      VITE_LINKEDIN_URL: ${{ vars.VITE_LINKEDIN_URL }}
+      VITE_INSTAGRAM_URL: ${{ vars.VITE_INSTAGRAM_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Verifica URL definitivo
+        run: test -n "$SITE_URL" && test -n "$BASE_PATH"
+      - run: npm ci
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run check:secrets
+      - run: npm audit --audit-level=high
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

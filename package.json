@@ -1,0 +1,40 @@
+{
+  "name": "arena-digital-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4175 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run && node --test scripts/local-processes.test.mjs",
+    "build": "npm run typecheck && vite build && node scripts/prerender.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4175 --strictPort",
+    "format": "prettier --write src tests scripts/*.mjs *.json *.html *.ts .github/workflows/*.yml",
+    "format:check": "prettier --check src tests scripts/*.mjs *.json *.html *.ts .github/workflows/*.yml",
+    "check:secrets": "python3 scripts/check-secrets.py src public scripts .github tests --output reports/portfolio-secret-scan.json --fail-on-candidates",
+    "test:browser": "playwright test",
+    "demos:up": "node scripts/local-demos.mjs up",
+    "demos:status": "node scripts/local-demos.mjs status",
+    "demos:stop": "node scripts/local-demos.mjs stop"
+  },
+  "dependencies": {
+    "lucide-react": "0.577.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.0",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "prettier": "3.9.10",
+    "typescript": "7.0.2",
+    "vite": "8.3.6",
+    "vitest": "5.1.0"
+  }
+}
