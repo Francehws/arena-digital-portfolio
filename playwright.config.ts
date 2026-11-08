@@ -8,7 +8,7 @@ export default defineConfig({
   outputDir: 'output/playwright/results',
   webServer: {
     command:
-      'BASE_PATH=/ npm run dev -- --host 127.0.0.1 --port 4175 --strictPort',
+      'BASE_PATH=/ PUBLISH_BUILD=0 npm run dev -- --host 127.0.0.1 --port 4175 --strictPort',
     url: 'http://127.0.0.1:4175',
     reuseExistingServer: !process.env.CI,
   },
