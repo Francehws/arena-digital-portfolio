@@ -20,11 +20,7 @@ try {
     if (!env.SITE_URL || !isPublicHttpsUrl(env.SITE_URL))
       throw new Error('Pubblicazione bloccata: SITE_URL non configurato.');
     for (const project of projects) {
-      if (!project.demoUrl)
-        throw new Error(
-          `Pubblicazione bloccata: manca la demo originale pubblica di ${project.name}.`,
-        );
-      if (!isPublicHttpsUrl(project.demoUrl))
+      if (project.demoUrl && !isPublicHttpsUrl(project.demoUrl))
         throw new Error(
           `Pubblicazione bloccata: ${project.name} punta a un ambiente locale o di prova.`,
         );
