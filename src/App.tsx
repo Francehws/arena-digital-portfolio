@@ -15,21 +15,46 @@ import {
   Github,
   Mail,
   MessageCircle,
+  GraduationCap,
+  ChartNoAxesCombined,
+  Store,
+  MapPin,
+  Images,
+  BriefcaseBusiness,
+  Wrench,
+  Factory,
+  Bike,
+  FileSearch,
+  WalletCards,
+  BookOpenCheck,
+  ShoppingBag,
+  Sparkles,
 } from 'lucide-react';
 import { config, href } from './config';
-import {
-  projects,
-  categories,
-  nativePreviews,
-  demoHref,
-  type Project,
-} from './projects';
+import { projects, categories, nativePreviews, type Project } from './projects';
 
 const projectIcons = {
   tavqi: Utensils,
   'ai-receptionist': Bot,
   'noleggio-auto': CarFront,
   'fps-staff-manager': Users,
+  'formazione-aula': GraduationCap,
+  'segnali-finanziari': ChartNoAxesCombined,
+  'marketplace-detailing': Store,
+  'gestionale-autoscuola': BookOpenCheck,
+  'crm-commerciale': Users,
+  'ordini-ristorazione': ShoppingCart,
+  'vetrina-gioielli': Sparkles,
+  'gestionale-concessionaria': CarFront,
+  'localizzazione-food-truck': MapPin,
+  'gallery-locale': Images,
+  'gestionale-studio': BriefcaseBusiness,
+  'gestionale-veicoli': Wrench,
+  'gestionale-impianti': Factory,
+  'onboarding-finanziario': WalletCards,
+  'gestionale-moto': Bike,
+  'registrazione-guidata': ShoppingBag,
+  'analisi-documentale': FileSearch,
 };
 function Header() {
   const [open, setOpen] = useState(false);
@@ -91,7 +116,7 @@ function Contact() {
           <p className="contact-pending">Recapiti in configurazione</p>
         )}
         <a className="text-link" href={href('/#progetti')}>
-          Torna alle demo
+          Torna ai progetti
           <ArrowRight size={18} />
         </a>
         {(config.linkedin || config.instagram) && (
@@ -140,26 +165,26 @@ function Footer() {
 }
 function ProductVisual({ project }: { project: Project }) {
   const Icon = projectIcons[project.id];
+  const preview = nativePreviews
+    ? project.previewFile
+      ? href(`/native-previews/${project.previewFile}`)
+      : ''
+    : href('/favicon.svg');
   return (
     <div className={`project-preview ${project.accent}`}>
-      <img
-        src={
-          nativePreviews
-            ? href(`/native-previews/${project.id}.png`)
-            : href('/favicon.svg')
-        }
-        alt={
-          nativePreviews
-            ? `Interfaccia originale ${project.name} nella copia demo`
-            : `Progetto ${project.name}`
-        }
-        width="1000"
-        height="650"
-        loading="lazy"
-        onError={(e) => {
-          e.currentTarget.style.display = 'none';
-        }}
-      />
+      {preview && (
+        <img
+          src={preview}
+          alt={
+            nativePreviews
+              ? `Anteprima autorizzata ${project.name}`
+              : `Progetto ${project.name}`
+          }
+          width="1000"
+          height="650"
+          loading="lazy"
+        />
+      )}
       <div className="preview-fallback" aria-hidden="true">
         <Icon size={54} />
         <div className="preview-lines">
@@ -176,11 +201,11 @@ function ProjectList() {
   return (
     <section id="progetti" className="projects-section section">
       <div className="section-heading">
-        <h2>Il software si capisce provandolo.</h2>
+        <h2>Progetti software per il lavoro quotidiano.</h2>
         <p>
-          Apri i progetti originali.
+          Scopri le applicazioni realizzate.
           <br />
-          Copie isolate, dati fittizi, interfacce reali.
+          Le demo interattive sono temporaneamente sospese.
         </p>
       </div>
       <div className="filter-tabs" aria-label="Categorie progetti">
@@ -220,17 +245,25 @@ function ProjectList() {
                   <span className="verified-label">
                     {p.demoUrl
                       ? 'Demo originale collegata'
-                      : 'Progetto originale · demo da collegare'}
+                      : 'Demo interattiva non disponibile'}
                   </span>
                   <div className="button-row">
-                    <a className="button" href={demoHref(p)}>
-                      Prova la demo
-                      <ArrowUpRight size={17} />
-                    </a>
-                    <a className="text-link" href={href(`/projects/${p.id}/`)}>
-                      Scopri il progetto
-                      <ArrowRight size={17} />
-                    </a>
+                    {p.demoUrl ? (
+                      <a
+                        className="button"
+                        href={p.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Apri la demo
+                        <ArrowUpRight size={17} />
+                      </a>
+                    ) : (
+                      <a className="button" href={href(`/projects/${p.id}/`)}>
+                        Scheda progetto
+                        <ArrowRight size={17} />
+                      </a>
+                    )}
                   </div>
                 </div>
                 <a
@@ -265,11 +298,11 @@ function Home() {
           </p>
           <div className="button-row">
             <a className="button" href="#progetti">
-              Prova le demo
-              <ArrowUpRight size={18} />
-            </a>
-            <a className="button secondary" href="#progetti">
               Esplora i progetti
+              <ArrowRight size={18} />
+            </a>
+            <a className="button secondary" href="#contatti">
+              Parliamone
             </a>
           </div>
         </div>
@@ -292,7 +325,7 @@ function Home() {
             { icon: ShoppingCart, name: 'Ordini', id: 'tavqi' },
             { icon: Layers3, name: 'Catalogo', id: 'noleggio-auto' },
           ].map(({ icon: Icon, name, id }) => (
-            <a key={id} href={demoHref(projects.find((p) => p.id === id)!)}>
+            <a key={id} href={href(`/projects/${id}/`)}>
               <span className="workflow-icon">
                 <Icon size={25} />
               </span>
@@ -306,7 +339,7 @@ function Home() {
             </a>
           ))}
           <p className="workflow-caption">
-            Interfacce originali, in ambienti demo separati.
+            Anteprime autorizzate; collegamenti alle demo sospesi.
           </p>
         </div>
       </section>
@@ -409,17 +442,22 @@ function ProjectPage({
         <h1>{p.name}</h1>
         <p>{p.summary}</p>
         <div className="button-row">
-          {!demo ? (
-            <a className="button" href={demoHref(p)}>
+          {demo ? (
+            <a className="text-link" href={href(`/projects/${p.id}/`)}>
+              Scheda progetto
+              <ArrowRight size={17} />
+            </a>
+          ) : p.demoUrl ? (
+            <a
+              className="button"
+              href={p.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Entra nella demo
               <ArrowUpRight size={18} />
             </a>
-          ) : (
-            <a className="text-link" href={href(`/projects/${p.id}/`)}>
-              Scopri il progetto
-              <ArrowRight size={17} />
-            </a>
-          )}
+          ) : null}
           <a className="button secondary" href="#contatti">
             Richiedi una versione personalizzata
           </a>
@@ -430,9 +468,11 @@ function ProjectPage({
           className="scope-block native-launch"
           aria-label={`Demo originale ${p.name}`}
         >
-          <h2>Apri il progetto originale</h2>
+          <h2>
+            {p.demoUrl ? 'Apri il progetto originale' : 'Demo non pubblicata'}
+          </h2>
           <p>{p.demoScope}</p>
-          <p className="muted">{p.access}</p>
+          {p.demoUrl && <p className="muted">{p.access}</p>}
           {p.demoUrl ? (
             <a
               className="button"
@@ -445,8 +485,8 @@ function ProjectPage({
             </a>
           ) : (
             <p className="status">
-              La demo originale è temporaneamente non disponibile. Questa
-              anteprima non sostituisce l’applicazione.
+              La demo interattiva non è disponibile. Questa pagina è una scheda
+              informativa e non sostituisce l’applicazione.
             </p>
           )}
           <div className="case-preview">
@@ -488,15 +528,24 @@ function ProjectPage({
             </article>
           </section>
           <section className="scope-block">
-            <h3>Cosa stai provando</h3>
+            <h3>Stato del progetto</h3>
             <p>{p.demoScope}</p>
             <p className="muted">
               Tecnologie del progetto: {p.technologies.join(' · ')}.
             </p>
-            <a className="button" href={demoHref(p)}>
-              Prova la demo
-              <ArrowUpRight size={18} />
-            </a>
+            {p.demoUrl ? (
+              <a
+                className="button"
+                href={p.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Prova la demo
+                <ArrowUpRight size={18} />
+              </a>
+            ) : (
+              <p className="status">La demo interattiva non è pubblicata.</p>
+            )}
           </section>
         </>
       )}

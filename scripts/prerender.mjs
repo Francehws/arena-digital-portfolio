@@ -49,7 +49,7 @@ try {
       path: '/',
       title: 'Arena Digital | Software, AI e automazioni',
       description:
-        'Software su misura, assistenti AI e automazioni per semplificare il lavoro. Esplora i progetti originali nei loro ambienti demo isolati.',
+        'Progetti software su misura, assistenti AI e automazioni. Le schede descrivono i progetti; le demo interattive sono temporaneamente sospese.',
     },
     ...projects.flatMap((p) => [
       {
@@ -59,8 +59,12 @@ try {
       },
       {
         path: `/projects/${p.id}/demo`,
-        title: `Prova ${p.name} | Arena Digital`,
-        description: `Demo del progetto originale: ${p.summary} Ambiente isolato con dati fittizi.`,
+        title: p.demoUrl
+          ? `Prova ${p.name} | Arena Digital`
+          : `Stato demo: ${p.name} | Arena Digital`,
+        description: p.demoUrl
+          ? `Demo del progetto originale: ${p.summary} Ambiente isolato con dati fittizi.`
+          : `${p.summary} Scheda informativa; la demo interattiva non è pubblicata.`,
       },
     ]),
     {

@@ -1,7 +1,29 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-const ids = ['tavqi', 'ai-receptionist', 'noleggio-auto', 'fps-staff-manager'];
-test('vetrina e schede dei quattro progetti originali, senza simulazioni sostitutive', async ({
+const ids = [
+  'tavqi',
+  'ai-receptionist',
+  'noleggio-auto',
+  'fps-staff-manager',
+  'formazione-aula',
+  'segnali-finanziari',
+  'marketplace-detailing',
+  'gestionale-autoscuola',
+  'crm-commerciale',
+  'ordini-ristorazione',
+  'vetrina-gioielli',
+  'gestionale-concessionaria',
+  'localizzazione-food-truck',
+  'gallery-locale',
+  'gestionale-studio',
+  'gestionale-veicoli',
+  'gestionale-impianti',
+  'onboarding-finanziario',
+  'gestionale-moto',
+  'registrazione-guidata',
+  'analisi-documentale',
+];
+test('vetrina e schede di tutti i progetti, senza simulazioni sostitutive', async ({
   page,
   request,
 }) => {
@@ -41,14 +63,16 @@ test('vetrina e schede dei quattro progetti originali, senza simulazioni sostitu
 test('categorie, menu mobile e navigazione da tastiera', async ({ page }) => {
   await page.goto('/');
   await page
-    .getByRole('button', { name: 'Intelligenza artificiale', exact: true })
+    .getByRole('button', { name: 'AI e automazioni', exact: true })
     .click();
-  await expect(page.locator('.project-row')).toHaveCount(1);
-  await expect(page.locator('.project-row')).toContainText('AI Receptionist');
-  await page.getByRole('button', { name: 'Gestionali', exact: true }).click();
   await expect(page.locator('.project-row')).toHaveCount(3);
+  await expect(page.locator('.project-row').first()).toContainText(
+    'AI Receptionist',
+  );
+  await page.getByRole('button', { name: 'Gestionali', exact: true }).click();
+  await expect(page.locator('.project-row')).toHaveCount(10);
   await page.getByRole('button', { name: 'Tutti', exact: true }).click();
-  await expect(page.locator('.project-row')).toHaveCount(4);
+  await expect(page.locator('.project-row')).toHaveCount(21);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('button', { name: 'Apri menu' }).click();
   await expect(page.getByRole('navigation')).toBeVisible();
@@ -73,7 +97,7 @@ test('recapiti autorizzati e collegamenti alle applicazioni originali', async ({
   for (const id of ids) {
     await page.goto(`/projects/${id}/demo/`);
     await expect(
-      page.getByRole('heading', { name: 'Apri il progetto originale' }),
+      page.getByRole('heading', { name: 'Demo non pubblicata' }),
     ).toBeVisible();
     const link = page.locator('.native-launch a.button');
     if (await link.count()) {
@@ -83,8 +107,12 @@ test('recapiti autorizzati e collegamenti alle applicazioni originali', async ({
       expect(url.password).toBe('');
     } else
       await expect(page.locator('.native-launch')).toContainText(
-        'temporaneamente non disponibile',
+        'demo interattiva non è disponibile',
       );
+    if (id === 'noleggio-auto')
+      await expect(
+        page.getByRole('heading', { name: 'Gestionale noleggio auto' }),
+      ).toBeVisible();
   }
 });
 test('mobile senza overflow sulle pagine dei progetti', async ({ page }) => {

@@ -1,8 +1,8 @@
 # Arena Digital — portfolio dei progetti originali
 
-Vetrina statica in italiano per **Tavqi, AI Receptionist, Gestionale noleggio auto e F.P.S. Staff Manager**, con anteprime delle interfacce. I collegamenti alle quattro app demo sono temporaneamente sospesi: l’hosting gratuito ha messo in pausa i deploy di produzione e alcuni flussi non rispondono. La scheda autonoleggio e la sua anteprima non mostrano il marchio del precedente cliente.
+Vetrina statica in italiano con **21 schede progetto** e quattro anteprime native selezionate. I titoli dei nuovi casi sono descrittivi e non riportano i nomi dei clienti. I collegamenti alle quattro demo pubbliche restano sospesi: l’hosting gratuito ha messo in pausa i deploy di produzione e alcuni flussi non rispondono.
 
-Il portfolio usa React, TypeScript strict e Vite e rimane statico. Le copie demo hanno ambienti separati: Tavqi usa la demo nativa in memoria; le altre tre applicazioni Next.js usano database dimostrativi dedicati. Le copie di lavoro, i dati e le credenziali locali restano in `.local-demos/`, esclusa dal repository della vetrina. Il codice delle demo è destinato al repository privato approvato. Nessun progetto originale viene modificato.
+Il portfolio usa React, TypeScript strict e Vite e rimane statico. Quattro copie demo approvate hanno ambienti separati: Tavqi usa la demo nativa in memoria; le altre tre applicazioni Next.js usano database dimostrativi dedicati. Le altre schede sono descrittive e non presentano demo finte. Le copie di lavoro, i dati e le credenziali locali restano in `.local-demos/`, esclusa dal repository della vetrina. Il codice delle demo è destinato al repository privato approvato. Nessun progetto originale viene modificato.
 
 ## Avvio del portfolio
 
