@@ -28,7 +28,7 @@ import {
 const projectIcons = {
   tavqi: Utensils,
   'ai-receptionist': Bot,
-  'auto-manhattan': CarFront,
+  'noleggio-auto': CarFront,
   'fps-staff-manager': Users,
 };
 function Header() {
@@ -290,7 +290,7 @@ function Home() {
               id: 'ai-receptionist',
             },
             { icon: ShoppingCart, name: 'Ordini', id: 'tavqi' },
-            { icon: Layers3, name: 'Catalogo', id: 'auto-manhattan' },
+            { icon: Layers3, name: 'Catalogo', id: 'noleggio-auto' },
           ].map(({ icon: Icon, name, id }) => (
             <a key={id} href={demoHref(projects.find((p) => p.id === id)!)}>
               <span className="workflow-icon">

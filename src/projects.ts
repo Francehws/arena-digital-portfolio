@@ -1,5 +1,5 @@
 export type DemoId =
-  'tavqi' | 'ai-receptionist' | 'auto-manhattan' | 'fps-staff-manager';
+  'tavqi' | 'ai-receptionist' | 'noleggio-auto' | 'fps-staff-manager';
 export interface Project {
   id: DemoId;
   name: string;
@@ -90,8 +90,8 @@ export const projects: Project[] = [
       'Applicazione originale e database nuovo. Il simulatore è quello incluso nel progetto; chiamate, WhatsApp, notifiche e modelli AI esterni restano disattivati.',
   },
   {
-    id: 'auto-manhattan',
-    name: 'Auto Manhattan',
+    id: 'noleggio-auto',
+    name: 'Gestionale noleggio auto',
     category: 'Gestionali',
     sector: 'Autonoleggio',
     summary: 'Flotta, disponibilità e prenotazioni nel gestionale originale.',

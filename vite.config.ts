@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
                   'assets/og.png',
                   'native-previews/tavqi.png',
                   'native-previews/ai-receptionist.png',
-                  'native-previews/auto-manhattan.png',
+                  'native-previews/noleggio-auto.png',
                   'native-previews/fps-staff-manager.png',
                 ]) {
                   const target = path.resolve('dist', name);

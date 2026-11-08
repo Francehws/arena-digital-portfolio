@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-const ids = ['tavqi', 'ai-receptionist', 'auto-manhattan', 'fps-staff-manager'];
+const ids = ['tavqi', 'ai-receptionist', 'noleggio-auto', 'fps-staff-manager'];
 test('vetrina e schede dei quattro progetti originali, senza simulazioni sostitutive', async ({
   page,
   request,
