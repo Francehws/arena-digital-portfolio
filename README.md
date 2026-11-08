@@ -21,7 +21,7 @@ Per collegarli, configura `.env.local` con URL locali, senza segreti:
 VITE_TAVQI_DEMO_URL=http://127.0.0.1:4181/demo/prova
 VITE_RECEPTIONIST_DEMO_URL=http://127.0.0.1:4183/login
 VITE_AUTO_DEMO_URL=http://127.0.0.1:4182/admin/login
-VITE_FPS_DEMO_URL=http://127.0.0.1:4184/login
+VITE_FPS_DEMO_URL=http://127.0.0.1:4184/
 VITE_NATIVE_PREVIEWS=1
 ```
 

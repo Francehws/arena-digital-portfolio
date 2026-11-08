@@ -7,7 +7,8 @@ export default defineConfig({
   reporter: [['list'], ['json', { outputFile: 'reports/browser-tests.json' }]],
   outputDir: 'output/playwright/results',
   webServer: {
-    command: 'python3 -m http.server 4175 --bind 127.0.0.1 --directory dist',
+    command:
+      'BASE_PATH=/ npm run dev -- --host 127.0.0.1 --port 4175 --strictPort',
     url: 'http://127.0.0.1:4175',
     reuseExistingServer: !process.env.CI,
   },

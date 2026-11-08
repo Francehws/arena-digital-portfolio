@@ -52,11 +52,13 @@ test('categorie, menu mobile e navigazione da tastiera', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('button', { name: 'Apri menu' }).click();
   await expect(page.getByRole('navigation')).toBeVisible();
-  await page.goto('/');
-  await page.keyboard.press('Tab');
+  const keyboardPage = await page.context().newPage();
+  await keyboardPage.goto('/');
+  await keyboardPage.keyboard.press('Tab');
   await expect(
-    page.getByRole('link', { name: 'Vai al contenuto' }),
+    keyboardPage.getByRole('link', { name: 'Vai al contenuto' }),
   ).toBeFocused();
+  await keyboardPage.close();
 });
 test('recapiti autorizzati e collegamenti alle applicazioni originali', async ({
   page,
