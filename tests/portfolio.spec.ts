@@ -83,7 +83,7 @@ test('recapiti autorizzati e collegamenti alle applicazioni originali', async ({
       expect(url.password).toBe('');
     } else
       await expect(page.locator('.native-launch')).toContainText(
-        'non è ancora collegato',
+        'temporaneamente non disponibile',
       );
   }
 });

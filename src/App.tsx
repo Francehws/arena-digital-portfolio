@@ -445,8 +445,8 @@ function ProjectPage({
             </a>
           ) : (
             <p className="status">
-              L’ambiente originale non è ancora collegato su questo indirizzo.
-              Nessuna simulazione sostitutiva viene mostrata.
+              La demo originale è temporaneamente non disponibile. Questa
+              anteprima non sostituisce l’applicazione.
             </p>
           )}
           <div className="case-preview">
